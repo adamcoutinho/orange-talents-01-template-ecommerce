@@ -1,0 +1,1 @@
+insert into usuario (id,login,senha,instant) values (nextval('sq_usuario') , 'admin@gmail.com','$2a$10$f4urDEH7x4Ql3d8DoG8MVu5YUrfTn5tqfM2oma0XHeA2iqAB6NJp.', current_timestamp);
