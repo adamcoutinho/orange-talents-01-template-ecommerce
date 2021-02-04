@@ -1,7 +1,7 @@
 package br.com.zup.mercadolivre.autenticar;
 
 import br.com.zup.mercadolivre.config.security.JwtService;
-import br.com.zup.mercadolivre.usuario.Usuario;
+import br.com.zup.mercadolivre.cadastrousuario.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

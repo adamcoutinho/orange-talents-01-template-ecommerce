@@ -1,6 +1,6 @@
 package br.com.zup.mercadolivre.config.security;
 
-import br.com.zup.mercadolivre.usuario.Usuario;
+import br.com.zup.mercadolivre.cadastrousuario.Usuario;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
