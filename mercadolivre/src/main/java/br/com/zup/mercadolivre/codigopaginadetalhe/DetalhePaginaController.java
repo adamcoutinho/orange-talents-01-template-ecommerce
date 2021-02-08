@@ -1,8 +1,6 @@
 package br.com.zup.mercadolivre.codigopaginadetalhe;
 
 import br.com.zup.mercadolivre.cadastroproduto.Produto;
-import br.com.zup.mercadolivre.validation.ExistId;
-import br.com.zup.mercadolivre.validation.UniqueValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

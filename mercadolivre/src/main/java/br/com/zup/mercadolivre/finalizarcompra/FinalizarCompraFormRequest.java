@@ -5,11 +5,13 @@ import br.com.zup.mercadolivre.cadastrousuario.Usuario;
 import br.com.zup.mercadolivre.validation.ExistId;
 
 import javax.persistence.EntityManager;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 public class FinalizarCompraFormRequest {
 
+    @NotBlank(message = "usuario deslogado.")
     private String usuario;
 
     @ExistId(domainClass = Produto.class,fieldName = "id",message = "produto não existe.")
@@ -40,7 +42,7 @@ public class FinalizarCompraFormRequest {
 
         Produto produto = toProduto(manager);
 
-        return new Compra();
+        return new Compra(produto,quantidade,usuario,gatewayPagamento);
 
     }
 
@@ -55,4 +57,8 @@ public class FinalizarCompraFormRequest {
     public Integer getQuantidade() {
         return quantidade;
     }
+
+
+
+
 }

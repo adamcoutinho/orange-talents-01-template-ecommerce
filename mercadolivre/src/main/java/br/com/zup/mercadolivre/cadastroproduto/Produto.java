@@ -1,9 +1,9 @@
 package br.com.zup.mercadolivre.cadastroproduto;
 
-import br.com.zup.mercadolivre.cadastrocategoria.Categoria;
 import br.com.zup.mercadolivre.adicionaopiniao.Opiniao;
-import br.com.zup.mercadolivre.facaumapergunta.Pergunta;
+import br.com.zup.mercadolivre.cadastrocategoria.Categoria;
 import br.com.zup.mercadolivre.cadastrousuario.Usuario;
+import br.com.zup.mercadolivre.facaumapergunta.Pergunta;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -12,7 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -51,7 +50,7 @@ public class Produto {
 
     @NotNull(message = "caracteristicas não pode ser nulas")
     @Size(max = 3)
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "produto",cascade = CascadeType.PERSIST)
     private List<Caracteristica> caracteristicas;
 
     @NotBlank(message = "informe uma descrição.")
@@ -156,7 +155,14 @@ public class Produto {
         this.imagens = imagensUrl.stream().map(url -> new Imagem(url, this)).collect(Collectors.toList());
     }
 
-    
+    public boolean substraiEstoque(@Positive int quantidadePedida) {
+        if (quantidadePedida <= this.getQuantidade()) {
+            this.quantidade -= this.getQuantidade() - quantidadePedida;
+            return true;
+        }
+        return false;
+    }
+
 
     public Long obterNumeroTotalNotas() {
         return this.getOpinioes().stream().count();
@@ -171,15 +177,15 @@ public class Produto {
     }
 
     public Map<String, String> obterMapaCaracteristicas() {
-        return this.getCaracteristicas().stream().collect(Collectors.toMap(c -> c.getNome(), Caracteristica::getDescricao));
+        return this.getCaracteristicas().stream().collect(Collectors.toMap(Caracteristica::getNome, Caracteristica::getDescricao));
     }
 
     public List<String> obterPerguntasDescricao() {
-        return this.getPerguntas().stream().map(pergunta -> pergunta.getTitulo()).collect(Collectors.toList());
+        return this.getPerguntas().stream().map(Pergunta::getTitulo).collect(Collectors.toList());
     }
 
     public List<String> obterOpinioes() {
-        return this.getOpinioes().stream().map(opiniao -> opiniao.getTitulo()).collect(Collectors.toList());
+        return this.getOpinioes().stream().map(Opiniao::getTitulo).collect(Collectors.toList());
     }
 
 }

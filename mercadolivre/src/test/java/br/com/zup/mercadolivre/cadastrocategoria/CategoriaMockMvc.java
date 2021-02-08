@@ -46,7 +46,12 @@ public class CategoriaMockMvc {
         // verificar
         URI uri = new URI("/categoria/cadastrar");
 
+
+
+
         CategoriaFormRequest formRequest = new CategoriaFormRequest("teste");
+
+
         mockMvc.perform(post(uri).content(objectMapper.writeValueAsString(formRequest)).contentType(MediaType.APPLICATION_JSON)).andExpect(status().is(200));
 
         Mockito.verify(null);
